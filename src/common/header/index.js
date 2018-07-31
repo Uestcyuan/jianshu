@@ -17,6 +17,7 @@ import {
   SearchInfoList,
   SearchInfoItem
 } from "./style";
+import {Link} from "react-router-dom";
 
 class Header extends Component {
   getListArea() {
@@ -77,7 +78,9 @@ class Header extends Component {
     const { focused, searchFocus, searchBlur, list } = this.props;
     return (
       <HeaderWrapper>
+        <Link to="/">
         <Logo />
+        </Link>
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载App</NavItem>

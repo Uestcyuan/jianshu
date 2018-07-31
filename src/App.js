@@ -10,17 +10,17 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
-          <Header />
+          
           <BrowserRouter>
             <div>
+              <Header />
               {/* /detail 能匹配一下两个，而不是全字匹配，加上 exact 全字匹配 */}
               {/* /只匹配了第一个 */}
               <Route path="/" exact component={Home} />
               <Route path="/detail" exact component={Detail} />
             </div>
           </BrowserRouter>
-        </div>
+
       </Provider>
     );
   }
