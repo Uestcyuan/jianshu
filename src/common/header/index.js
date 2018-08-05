@@ -17,7 +17,7 @@ import {
   SearchInfoList,
   SearchInfoItem
 } from "./style";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Header extends Component {
   getListArea() {
@@ -75,16 +75,22 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, searchFocus, searchBlur, list } = this.props;
+    const { focused, searchFocus, searchBlur, list, login } = this.props;
     return (
       <HeaderWrapper>
         <Link to="/">
-        <Logo />
+          <Logo />
         </Link>
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载App</NavItem>
-          <NavItem className="right">登陆</NavItem>
+          {login ? (
+            <NavItem className="right">退出</NavItem>
+          ) : (
+            <Link to='/login'>
+              <NavItem className="right">登陆</NavItem>
+            </Link>
+          )}
           <NavItem className="right">
             <i className="iconfont">&#xe636;</i>
           </NavItem>
@@ -123,7 +129,8 @@ const mapStateToProps = state => {
     list: state.getIn(["header", "list"]),
     page: state.getIn(["header", "page"]),
     totalPage: state.getIn(["header", "totalPage"]),
-    mouseIn: state.getIn(["header", "mouseIn"])
+    mouseIn: state.getIn(["header", "mouseIn"]),
+    login: state.getIn(["login", "login"])
   };
 };
 
@@ -132,7 +139,7 @@ const mapDispatchToProps = dispatch => {
     searchFocus(list) {
       if (list.size === 0) {
         dispatch(actionCreator.getList());
-      };
+      }
       dispatch(actionCreator.searchFocus());
     },
     searchBlur() {
