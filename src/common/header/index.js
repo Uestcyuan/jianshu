@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { actionCreator } from "./store";
+import { actionCreator as loginActionCreator } from "../../pages/login/store";
 import {
   HeaderWrapper,
   Logo,
@@ -75,7 +76,14 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, searchFocus, searchBlur, list, login } = this.props;
+    const {
+      focused,
+      searchFocus,
+      searchBlur,
+      list,
+      login,
+      logout
+    } = this.props;
     return (
       <HeaderWrapper>
         <Link to="/">
@@ -85,9 +93,11 @@ class Header extends Component {
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载App</NavItem>
           {login ? (
-            <NavItem className="right">退出</NavItem>
+            <NavItem onClick={logout} className="right">
+              退出
+            </NavItem>
           ) : (
-            <Link to='/login'>
+            <Link to="/login">
               <NavItem className="right">登陆</NavItem>
             </Link>
           )}
@@ -110,9 +120,11 @@ class Header extends Component {
         </Nav>
         <Addition>
           <Button className="reg">注册</Button>
-          <Button className="writting">
-            <i className="iconfont">&#xe61b;</i>写文章
-          </Button>
+          <Link to="/write">
+            <Button className="writting">
+              <i className="iconfont">&#xe61b;</i>写文章
+            </Button>
+          </Link>
         </Addition>
       </HeaderWrapper>
     );
@@ -165,6 +177,9 @@ const mapDispatchToProps = dispatch => {
       } else {
         dispatch(actionCreator.changePage(1));
       }
+    },
+    logout() {
+      dispatch(loginActionCreator.logout());
     }
   };
 };
